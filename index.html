@@ -11,7 +11,8 @@
 
             $( document ).ready(function() {
                 $("#datewithparammodal").on('shown.bs.modal', function()
-                                            {
+                                       {
+                    $("#save").unbind("click");
                     $("#save").on("click",function(e){
                         var year=$("#year").val();
                         var day=$("#day").val();
@@ -21,13 +22,15 @@
                 }); 
                 $("#datewithstringmodal").on('shown.bs.modal', function()
                                              {
+                    $("#saveOfDateString").unbind("click");
                     $("#saveOfDateString").on("click",function(e){
-                        var datestring=$("#datestring").val().trim();  alert(datestring)                     
+                        var datestring=$("#datestring").val().trim();                      
                         displayDate(createDate,undefined,undefined,undefined,datestring,undefined);
                     });
                 }); 
                  $("#datewithmillsecondsmodal").on('shown.bs.modal', function()
                                              {
+                    $("#saveOfMilliseconds").unbind("click");
                     $("#saveOfMilliseconds").on("click",function(e){
                         var ms=$("#milliseconds").val();                      
                         displayDate(createDate,undefined,undefined,undefined,undefined,ms);
@@ -51,7 +54,7 @@
             }
             function displayDate(fnToBeCalled,year,month,day,dateStr){ //fnToBeCalled-will be createDefaultDate
                 var date=fnToBeCalled(year,month,day,dateStr);
-                alert(date);
+              //  alert(date);
                 $("#displayDate").text(date);
             }
             /*Default Date - End*/
@@ -81,7 +84,7 @@
                 Info-hover over me
             </span>
             <br><br>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#datewithstringmodal" >Create Date using miiliseconds</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#datewithmillsecondsmodal" >Create Date using miiliseconds</button>
             <span style="fong-14px;color:red" data-toggle="tooltip" title="Create date passing date in milliseconds" class="glyphicon glyphicon-info-sign" aria-hidden="true">
                 Info-hover over me
             </span>
