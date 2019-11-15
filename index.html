@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>      
+        <meta charset="UTF-8">
+        <title>Various way to create Dates in Javascript</title>       
+        <script type="text/javascript" src="jquery.min.js"></script>       
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>  
+
+            $( document ).ready(function() {
+                $("#datewithparammodal").on('shown.bs.modal', function()
+                                            {
+                    $("#save").on("click",function(e){
+                        var year=$("#year").val();
+                        var day=$("#day").val();
+                        var month=$("#month").val();
+                        displayDate(createDate,year,month,day,undefined);
+                    });
+                }); 
+                $("#datewithstringmodal").on('shown.bs.modal', function()
+                                             {
+                    $("#saveOfDateString").on("click",function(e){
+                        var datestring=$("#datestring").val().trim();  alert(datestring)                     
+                        displayDate(createDate,undefined,undefined,undefined,datestring,undefined);
+                    });
+                }); 
+                 $("#datewithmillsecondsmodal").on('shown.bs.modal', function()
+                                             {
+                    $("#saveOfMilliseconds").on("click",function(e){
+                        var ms=$("#milliseconds").val();                      
+                        displayDate(createDate,undefined,undefined,undefined,undefined,ms);
+                    });
+                }); 
+                
+            });
+
+            /*Date options-https://www.w3schools.com/js/js_dates.asp*/
+            /*Default Date - Start*/
+            function createDate(year,month,day,dateStr,milliseconds){
+                if(year==undefined && month==undefined && day==undefined && dateStr==undefined && milliseconds==undefined)
+                    return new Date();
+                else if (year !=undefined && month !=undefined && day !=undefined && dateStr==undefined && milliseconds==undefined)
+                    return new Date(year,month,day);
+                else if (dateStr !=undefined && year==undefined && month==undefined && day==undefined && milliseconds==undefined)
+                    return new Date(dateStr);
+                else
+                    return new Date(milliseconds);
+
+            }
+            function displayDate(fnToBeCalled,year,month,day,dateStr){ //fnToBeCalled-will be createDefaultDate
+                var date=fnToBeCalled(year,month,day,dateStr);
+                alert(date);
+                $("#displayDate").text(date);
+            }
+            /*Default Date - End*/
+
+
+
+        </script>
+    </head>
+    <body>
+
+        <h3 style="margin-left:30%">Various ways to create Dates in Javascript</h3>
+        <div style="margin-left: 5%;">
+            <b>Date created is</b><label id="displayDate" style="margin-left:50px;background: yellow"></label><br><br>
+            <button type="button" class="btn btn-info" onclick="displayDate(createDate);">Create Date with no args to Date constructor</button>
+            <span style="fong-14px;color:red" data-toggle="tooltip" title="Create Date-no Arguments passed" class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                Info-hover over me
+            </span>
+            <br>
+            <br>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#datewithparammodal" >Create Date using Year,month,day,hours etc to Date()</button>
+            <span style="fong-14px;color:red" data-toggle="tooltip" title="We only pass year,month and day in this eg ( No hours, minutes, seconds, milliseconds are  entered. avascript Date function will use default values for these.You can extend this functionality for user to enter these values as well if you wish)" class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                Info-hover over me
+            </span>
+            <br><br>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#datewithstringmodal" >Create Date using Date String</button>
+            <span style="fong-14px;color:red" data-toggle="tooltip" title="Create date passing a string" class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                Info-hover over me
+            </span>
+            <br><br>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#datewithstringmodal" >Create Date using miiliseconds</button>
+            <span style="fong-14px;color:red" data-toggle="tooltip" title="Create date passing date in milliseconds" class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                Info-hover over me
+            </span>
+        </div>
+
+        <!-- Modal -->
+        <!-- remember entering 11 means dec and 12 means jan-->
+        <div class="modal fade" id="datewithparammodal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pass Parameters</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="year" class="col-form-label">Year:</label>
+                                <input type="text"  class="form-control" id="year" style="line-height:0.5rem;width:50%;">
+                            </div>
+                            <div class="form-group">
+                                <label for="month" class="col-form-label">Month:</label>
+                                <input type="text" class="form-control"  id="month" style="line-height:0.5rem;width:50%;">
+                            </div>
+                            <div class="form-group">
+                                <label for="dat" class="col-form-label">Day:</label>
+                                <input type="text" class="form-control"  id="day" style="line-height:0.5rem;width:50%;">
+                            </div>
+                        </form>                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="save" type="button"  data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="datewithstringmodal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="datewithstringmodalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="datewithstringmodalLabel">Pass Parameters</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="datestring" class="col-form-label">DateString:</label>
+                                <textarea class="form-control" id="datestring" style="line-height:0.5rem;">
+                                </textarea>
+                            </div>
+
+                        </form>                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="saveOfDateString" type="button"  data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="datewithmillsecondsmodal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="datewithmillsecondsmodalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="datewithstringmodalLabel">Pass Parameters</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="datestring" class="col-form-label">Milliseconds:</label>
+                                <textarea class="form-control" id="milliseconds" style="line-height:0.5rem;">
+                                </textarea>
+                            </div>
+
+                        </form>                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="saveOfMilliseconds" type="button"  data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
